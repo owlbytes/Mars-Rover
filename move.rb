@@ -1,17 +1,27 @@
-require 'launchy'
 
 # Intro
-puts "Do you want to build a snowman? Or do you want to move around? Type 's' for snowman or 'm' for moving please."
-frozen_answer = gets.chomp.upcase
+puts "Hello! I'm the Mars Rover. Type 'M' to move. Type 'I' for more information about the program. Type 'quit' to leave."
+intro_answer = gets.chomp.upcase
 
-if frozen_answer == "S"
-  Launchy.open("https://www.youtube.com/watch?v=obdR4VhkMew")
-end #end of snowman statement
+if intro_answer == "I"
+puts "The plain, i.e. the space you're moving on, is infinite. You are moving in a straight line. If you want move NW you must first move north and then west. You start at 0,0, the center of the plain. When moving south or west from the center you're coordinates will be represented as negative numbers. For example if you move 4N, 4E, 10S, and then 10W your final coordinates will be -6, -6 (west facing)."
+end
 
-if frozen_answer == "M"
+if intro_answer == "M"
   @x_coordinate = 0
   @y_coordinate = 0
-  puts "Your current coordinates are #{@x_coordinate}, #{@y_coordinate}" 
+  puts "Your current coordinates are #{@x_coordinate}, #{@y_coordinate}. " 
+
+
+
+  #this method resets the rover to 0,0.
+  def reset 
+    @x_coordinate = 0
+    @y_coordinate = 0
+    puts "Your current coordinates are #{@x_coordinate}, #{@y_coordinate}. " 
+
+    start
+  end
 
 
   #the move method takes the answers from the move_assessment method and makes the user move.
@@ -31,7 +41,7 @@ if frozen_answer == "M"
     if @direction == "W"
       @x_coordinate = @x_coordinate - @distance_number
     end
-    puts "Your current location is #{@x_coordinate}, #{@y_coordinate} (#{@direction})."
+    puts "Your current location is #{@x_coordinate}, #{@y_coordinate}. You are facing #{@direction}."
 
     #call the start method again so the user can keep moving (or quit)
     start
@@ -52,16 +62,15 @@ if frozen_answer == "M"
 
   #the start method asks the user if they want to move. if yes it calls the move_assessment method to figure out where and how far to move. If no it quits. 
   def start
-    puts "Do you want to move? (Y or N)"
-    again_answer = gets.chomp.upcase
+    puts "Type 'Y to move. Type 'R' to reset the rover. Type quit to leave." 
+    start_answer = gets.chomp.upcase
 
-    if again_answer == "Y"
+    if start_answer == "Y"
       move_assessment 
     end
 
-    if again_answer == "N"
-      Launchy.open("https://github.com/owlbytes")
-      Launchy.open("https://www.youtube.com/watch?v=WchnQOa2oO8")
+    if start_answer == "R"
+      reset
     end
   end
 
